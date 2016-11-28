@@ -20,15 +20,18 @@ directory will not render the entire copy useless.
 
 ### 0. The Basic Workflow
 
-The input for distributed_backup.py ('diba')is a single directory ('source')  
+The input for distributed_backup.py ('diba') is a single directory ('source')  
 and the  output is also a single directory ('destination'). When creating a  
 backup, diba will explore the input directory and all its subdirectories. For  
 each directory d, diba will create a BASH script and write the script into  
-> destination/distributed_backup_jobs/todo  
+> destination/.distributed_backup_jobs/todo  
 
 Executing one of these scripts will '.tar.gz' compress all the files within  
 the single original directory d into a file and then create an MD5 checksum  
-for the compressed file. The compressed files will be written into  
+for the compressed file. Importantly, any subdirectories of d will not be  
+included into the compressed file, because their contents will be handles by  
+the subdirectories' own respective BASH scripts. The compressed files will be  
+written into  
 > destination/files   
 
 In addition to the scripts, diba writes a file with the '.loc' extension for  
