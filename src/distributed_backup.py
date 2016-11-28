@@ -20,7 +20,7 @@ LOCFILE_EXTENSION = '.loc'
 COMPRESSED_EXTENSION = '.tar.gz'
 
 
-def do_print(s):
+def do_print(s, same_line=False):
     print('# ' + str(s))
 
 
@@ -323,8 +323,7 @@ def prepare_backups(options):
     # write the .loc files and the job scripts to compress the data
     counter = 0
     for dirpath, dirnames, fnames in os.walk(options.source):
-        if DEBUG:
-            do_print(dirpath)
+        do_print(dirpath, same_line=True)
         loc_fname = get_dir_fname(dirpath) + LOCFILE_EXTENSION
         loc_fpath = os.sep.join((options.destination,
                                  FILES_SUBFOLDER_NAME,

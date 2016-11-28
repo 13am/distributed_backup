@@ -18,6 +18,25 @@ directory will not render the entire copy useless.
 
 ## HOW TO USE
 
+### 0. The Basic Workflow
+
+The input for distributed_backup.py ('diba')is a single directory ('source')  
+and the  output is also a single directory ('destination'). When creating a  
+backup, diba will explore the input directory and all its subdirectories. For  
+each directory, diba will create a BASH script and write the script into  
+'destination/distributed_backup_jobs/todo'.  
+Executing one of these scripts will '.tar.gz' compress all the files within  
+it's directory into a file and then create an MD5 checksum for the compressed  
+file. The compressed files will be written into  
+'destination/distributed_backup_jobs/todo'.  
+In addition to the scripts, diba writes a file with the '.loc' extension for  
+each directory in 'source'. The '.loc' describe the contents of the directory.  
+The 'loc.' files are written in plain text, so if you later need to find out  
+which directory contains a specific file, you can e.g. grep the '.loc' files  
+and locate the correct compressed file. Diba also creates one master file,  
+'catalog.txt', which lists all of the directories which should be contained  
+in the output.
+
 ### 1. Create A Compressed Copy Of A Directory
 
 First, prepare the compression scripts by running
