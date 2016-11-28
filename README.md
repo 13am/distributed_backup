@@ -65,7 +65,7 @@ you can run
 
 which will move all the scripts whose results were found in their destination  
 from  'copy_of_a_dir/.distributed_backup_jobs/todo'  
-into  'copy_of_a_dir/.distributed_backup_jobs/todo'  
+into  'copy_of_a_dir/.distributed_backup_jobs/done'  
 
 Finally, verify that the directory 'copy_of_a_dir' and its contents are  
 present and intact:

@@ -21,7 +21,10 @@ COMPRESSED_EXTENSION = '.tar.gz'
 
 
 def do_print(s, same_line=False):
-    print('# ' + str(s))
+    newline_prefix = '# '
+    s = str(s).rstrip('\n')
+    s = s.replace('\n', '\n' + newline_prefix)
+    print(newline_prefix + str(s))
 
 
 def parse_options():
@@ -85,6 +88,11 @@ def parse_options():
                         default=False,
                         dest='no_interactive')
 
+    parser.add_argument('--verbose',
+                        action='store_true',
+                        default=False,
+                        dest='verbose')
+
     options = parser.parse_args()
 
     # make the --source and --destination paths absolute
@@ -92,6 +100,9 @@ def parse_options():
         options.source = os.path.abspath(options.source)
     if options.destination is not None:
         options.destination = os.path.abspath(options.destination)
+
+    if DEBUG:
+        options.verbose = True
 
     return options
 
@@ -268,7 +279,7 @@ def ask_to_run_job_scripts_locally(options):
             args = ['bash', fpath_todo]
             send_op_to = subprocess.DEVNULL
 
-            if DEBUG:
+            if options.verbose:
                 print('run "{}"'.format(' '.join(args)))
                 send_op_to = sys.stderr
 
@@ -557,6 +568,8 @@ def check_todo(options):
     counter = 0
     loc_files = list_loc_files(catalog_fpath)
     for fpath in loc_files:
+        if options.verbose:
+            do_print('Check ' + fpath)
         fname = os.path.basename(fpath)
         script_fname = fname[:-len(LOCFILE_EXTENSION)] + '.sh'
         script_fpath_todo = os.sep.join((script_dir_todo,
@@ -684,7 +697,7 @@ def restore_from_backup(options):
 
         restore_script = make_restore_script(fpath=tar_fpath,
                                              destination_dir=destination_dir)
-        if DEBUG:
+        if options.verbose:
             do_print('restore "{}" to "{}"'.format(tar_fpath,
                                                    destination_dir))
             do_print(restore_script + '\n')
