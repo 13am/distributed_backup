@@ -112,13 +112,16 @@ copy_of_a_dir/
 ├── .distributed_backup_jobs/  
 │   ├── done/  
 │   └── todo/  
-│       ├── copy_of_a_dir__some_subdirectory.sh  
-│       └── copy_of_a_dir__other_subdirectory.sh  
+│       ├── a_dir.sh  
+│       ├── a_dir__some_subdirectory.sh  
+│       └── a_dir__other_subdirectory.sh  
 └── files/  
-    ├── copy_of_a_dir__some_subdirectory.loc  
-    ├── copy_of_a_dir__some_subdirectory.loc.md5  
-    ├── copy_of_a_dir__other_subdirectory.loc  
-    └── copy_of_a_dir__other_subdirectory.loc.md5  
+    ├── a_dir.loc  
+    ├── a_dir.loc.md5  
+    ├── a_dir__some_subdirectory.loc  
+    ├── a_dir__some_subdirectory.loc.md5  
+    ├── a_dir__other_subdirectory.loc  
+    └── a_dir__other_subdirectory.loc.md5  
 
 
 catalog.txt: a list of all the files and folders that were found in 'a_dir'  
@@ -139,8 +142,8 @@ contain, for every subdirectory of 'a_dir', the necessary instructions to:
 2. move the compressed tar.gz file into the 'files' directory
 3. create an MD5 checksum for the compressed file
 
-So after executing 'copy_of_a_dir__some_subdirectory.sh' and  
-'copy_of_a_dir__some_subdirectory.sh' in the example would change the structure  
+So after executing  'a_dir.sh', 'a_dir__some_subdirectory.sh' and  
+'a_dir__some_subdirectory.sh' in the example would change the structure  
 of 'copy_of_a_dir' into  
 
 copy_of_a_dir/  
@@ -148,18 +151,23 @@ copy_of_a_dir/
 ├── catalog.txt.md5  
 ├── .distributed_backup_jobs/  
 │   └── done/  
-│       ├── copy_of_a_dir__some_subdirectory.sh  
-│       └── copy_of_a_dir__other_subdirectory.sh  
+│       ├── a_dir.sh  
+│       ├── a_dir__some_subdirectory.sh  
+│       └── a_dir__other_subdirectory.sh  
 │   └── todo/  
 └── files/  
-    ├── copy_of_a_dir__some_subdirectory.loc  
-    ├── copy_of_a_dir__some_subdirectory.loc.md5  
-    ├── copy_of_a_dir__some_subdirectory.tar.gz  
-    ├── copy_of_a_dir__some_subdirectory.tar.gz.md5  
-    ├── copy_of_a_dir__other_subdirectory.loc  
-    ├── copy_of_a_dir__other_subdirectory.loc.md5  
-    ├── copy_of_a_dir__other_subdirectory.tar.gz  
-    └── copy_of_a_dir__other_subdirectory.tar.gz.md5  
+    ├── a_dir.loc  
+    ├── a_dir.loc.md5  
+    ├── a_dir.tar.gz  
+    ├── a_dir.tar.gz.md5  
+    ├── a_dir__some_subdirectory.loc  
+    ├── a_dir__some_subdirectory.loc.md5  
+    ├── a_dir__some_subdirectory.tar.gz  
+    ├── a_dir__some_subdirectory.tar.gz.md5  
+    ├── a_dir__other_subdirectory.loc  
+    ├── a_dir__other_subdirectory.loc.md5  
+    ├── a_dir__other_subdirectory.tar.gz  
+    └── a_dir__other_subdirectory.tar.gz.md5  
 
 ### Executing The Decompression Scripts
 
