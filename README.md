@@ -29,18 +29,22 @@ each directory d, diba will create a BASH script and write the script into
 Executing one of these scripts will '.tar.gz' compress all the files within  
 the single original directory d into a file and then create an MD5 checksum  
 for the compressed file. Importantly, any subdirectories of d will not be  
-included into the compressed file, because their contents will be handles by  
+included into the compressed file, because their contents will be handled by  
 the subdirectories' own respective BASH scripts. The compressed files will be  
 written into  
-> destination/files   
+> destination/files  
 
-In addition to the scripts, diba writes a file with the '.loc' extension for  
-each directory in 'source'. The '.loc' files describe the contents of the  
+In addition to the scripts, diba writes a file with the .loc extension for  
+each directory in 'source'. The .loc files describe the contents of the  
 directory and are written in plain text, so if you later need to find out  
-which directory contains a specific file, you can e.g. grep the '.loc' files  
-and locate the correct compressed file. Diba also creates one master file,  
-'catalog.txt', which lists all of the directories which should be contained  
-in the output.
+which directory contains a specific file, you can e.g. grep the .loc files  
+and locate the correct compressed file. The .loc files are also written into  
+> destination/files  
+
+Diba also creates one master file, 'catalog.txt', which lists all of the  
+directories which should be contained in the output. The 'catalog.txt' file  
+is written into  
+> destination  
 
 ### 1. Create A Compressed Copy Of A Directory
 
