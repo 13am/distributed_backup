@@ -27,6 +27,11 @@ def do_print(s, same_line=False):
     print(newline_prefix + str(s))
 
 
+def exit_error(msg):
+    do_print('Error: ' + msg)
+    sys.exit(1)
+
+
 def parse_options():
 
     parser = argparse.ArgumentParser()
@@ -126,27 +131,19 @@ def _check_dir_existence(description=None, fpath=None, expected=True):
 
 
 def check_dir_existence(options, which, expected):
-    if which == 'source':
-        _check_dir_existence(description=which,
-                             fpath=options.source,
-                             expected=expected)
-    elif which == 'destination':
-        _check_dir_existence(description=which,
-                             fpath=options.destination,
-                             expected=expected)
-    else:
+    fpaths = {'source': options.source,
+              'destination': options.destination}
+    if which not in fpaths:
         raise RuntimeError
+    _check_dir_existence(description=which,
+                         fpath=fpaths[which],
+                         expected=expected)
 
 
 def check_source_and_destination(options):
     check_dir_existence(options, 'source', True)
     check_dir_existence(options, 'destination', False)
     return True
-
-
-def exit_error(msg):
-    do_print('Error: ' + msg.replace('\n', '\n# '))
-    sys.exit(1)
 
 
 # make the base file name for all files related to a specific directory
@@ -224,7 +221,7 @@ def md5file(fpath):
     out = out.decode('utf-8')
     md5sum = out.strip().split()[0]
     with open(fpath + '.md5', 'w') as op:
-        op.write('{}  {}\n'.format(md5sum, fname))  # TWO SPACES REQUIRED!
+        op.write('{}  {}\n'.format(md5sum, fname))  # two spaces required!
     return True
 
 
@@ -432,8 +429,13 @@ def verify_backups(options):
     fails = []
     for i in md5sums:
         ok = md5check(i)
+        word = 'pass'
         if not ok:
             fails.append(i)
+            word = 'fail'
+        if options.verbose:
+            msg = 'md5sum check {}: {}'.format(i, word)
+            do_print(msg)
     if len(fails) > 0:
         for i in fails:
             msg = 'md5sum fail for {}'.format(i)

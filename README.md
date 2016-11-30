@@ -58,12 +58,13 @@ compression scripts whichever way suits you best, e.g.:
 > for SCRIPT in copy_of_a_dir/.distributed_backup_jobs/todo/*.sh; do bash $SCRIPT; done  
 
 Executing the scripts will copy and compress the data into 'copy_of_a_dir' and  
-create checksums for the compressed files. When you are executing the scripts,  
+create checksums for the compressed files. After you have executed the scripts,  
 you can run 
 
 > distributed_backup.py --source a_dir --destination copy_of_a_dir  --check-backup-todo
 
-which will move all the scripts whose results were found in their destination  
+which checks the MD5 sums for the compressed files match and move all the  
+scripts whose results were found and pass the MD5 sum check  
 from  'copy_of_a_dir/.distributed_backup_jobs/todo'  
 into  'copy_of_a_dir/.distributed_backup_jobs/done'  
 
